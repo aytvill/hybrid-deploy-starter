@@ -1,0 +1,8 @@
+# Don't commit private keys
+.agekey
+*.agekey
+*.private.key
+
+# Don't commit plaintext secrets (if any exist temporarily)
+deploy/secrets/*.yaml.plain
+deploy/secrets/*.yaml.dec
