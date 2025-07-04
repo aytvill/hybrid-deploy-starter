@@ -1,0 +1,5 @@
+- name: Configure and deploy app
+  hosts: web
+  become: true
+  roles:
+    - app

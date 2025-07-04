@@ -1,0 +1,26 @@
+- name: Install Podman
+  ansible.builtin.apt:
+    name: podman
+    state: present
+    update_cache: true
+
+- name: Run container with systemd unit
+  ansible.builtin.copy:
+    dest: /etc/systemd/system/myapp.service
+    content: |
+      [Unit]
+      Description=My App Container
+      After=network.target
+
+      [Service]
+      ExecStart=/usr/bin/podman run --rm -p 80:80 my-image
+      Restart=always
+
+      [Install]
+      WantedBy=multi-user.target
+
+- name: Enable and start service
+  ansible.builtin.systemd:
+    name: myapp
+    enabled: true
+    state: started
